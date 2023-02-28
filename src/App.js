@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 // Import the main component
 import { Viewer } from '@react-pdf-viewer/core'; // install this library
 // Plugins
@@ -14,53 +14,53 @@ export const App = () => {
   // Create new plugin instance
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   
-  // for onchange event
-  const [pdfFile, setPdfFile]=useState(null);
-  const [pdfFileError, setPdfFileError]=useState('');
+  // // for onchange event
+  // const [pdfFile, setPdfFile]=useState(null);
+  // const [pdfFileError, setPdfFileError]=useState('');
 
-  // for submit event
-  const [viewPdf, setViewPdf]=useState(null);
+  // // for submit event
+  // const [viewPdf, setViewPdf]=useState(null);
 
-  // onchange event
-  const fileType=['application/pdf'];
-  const handlePdfFileChange=(e)=>{
-    let selectedFile=e.target.files[0];
-    if(selectedFile){
-      if(selectedFile&&fileType.includes(selectedFile.type)){
-        let reader = new FileReader();
-            reader.readAsDataURL(selectedFile);
-            reader.onloadend = (e) =>{
-              setPdfFile(e.target.result);
-              setPdfFileError('');
-            }
-      }
-      else{
-        setPdfFile(null);
-        setPdfFileError('Please select valid pdf file');
-      }
-    }
-    else{
-      console.log('select your file');
-    }
-  }
+  // // onchange event
+  // const fileType=['application/pdf'];
+  // const handlePdfFileChange=(e)=>{
+  //   let selectedFile=e.target.files[0];
+  //   if(selectedFile){
+  //     if(selectedFile&&fileType.includes(selectedFile.type)){
+  //       let reader = new FileReader();
+  //           reader.readAsDataURL(selectedFile);
+  //           reader.onloadend = (e) =>{
+  //             setPdfFile(e.target.result);
+  //             setPdfFileError('');
+  //           }
+  //     }
+  //     else{
+  //       setPdfFile(null);
+  //       setPdfFileError('Please select valid pdf file');
+  //     }
+  //   }
+  //   else{
+  //     console.log('select your file');
+  //   }
+  // }
 
-  // form submit
-  const handlePdfFileSubmit=(e)=>{
-    e.preventDefault();
-    if(pdfFile!==null){
-      setViewPdf(pdfFile);
-    }
-    else{
-      setViewPdf(null);
-    }
-  }
+  // // form submit
+  // const handlePdfFileSubmit=(e)=>{
+  //   e.preventDefault();
+  //   if(pdfFile!==null){
+  //     setViewPdf(pdfFile);
+  //   }
+  //   else{
+  //     setViewPdf(null);
+  //   }
+  // }
 
   return (
     <div className='container'>
 
     <br></br>
     
-      <form className='form-group' onSubmit={handlePdfFileSubmit}>
+      {/* <form className='form-group' onSubmit={handlePdfFileSubmit}>
         <input type="file" className='form-control'
           required onChange={handlePdfFileChange}
         />
@@ -71,16 +71,18 @@ export const App = () => {
         </button>
       </form>
       <br></br>
-      <h4>View PDF</h4>
+      <h4>View PDF</h4> */}
       <div className='pdf-container'>
         {/* show pdf conditionally (if we have one)  */}
-        {viewPdf&&<><Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-          <Viewer fileUrl={viewPdf}
+        {/* {viewPdf&&<> */}
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+          <Viewer fileUrl={'https://www.bosch-professional.com/br/media/country_content/service/after_sales_service/catalogues/2023/catalogo_be_2023_br_completo_spread_baixa.pdf'}
             plugins={[defaultLayoutPluginInstance]} />
-      </Worker></>}
+      </Worker>
+      {/* </>} */}
 
       {/* if we dont have pdf or viewPdf state is null */}
-      {!viewPdf&&<>No pdf file selected</>}
+      {/* {!viewPdf&&<>No pdf file selected</>} */}
       </div>
 
     </div>
